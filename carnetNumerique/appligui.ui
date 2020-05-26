@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>appliGui</class>
+ <widget class="QMainWindow" name="appliGui">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>628</width>
+    <height>412</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>appliGui</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>29</y>
+      <width>551</width>
+      <height>301</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="BoutonCreerProfil">
+         <property name="text">
+          <string>Créer Profil</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_4">
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>628</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menumenu_principal">
+    <property name="title">
+     <string>Menu principal</string>
+    </property>
+    <addaction name="actionmessage"/>
+    <addaction name="actionordonnance"/>
+    <addaction name="actionimprimer"/>
+    <addaction name="separator"/>
+    <addaction name="actionFermer"/>
+   </widget>
+   <widget class="QMenu" name="menuPi_ces_jointes">
+    <property name="title">
+     <string>Pièces jointes</string>
+    </property>
+    <addaction name="actionAjouter_pi_ce_jointe"/>
+    <addaction name="actionConsulter_les_pi_ces_jointes"/>
+   </widget>
+   <widget class="QMenu" name="menuInfo_pratique">
+    <property name="title">
+     <string>Info pratique</string>
+    </property>
+    <addaction name="actionLire_info"/>
+    <addaction name="separator"/>
+    <addaction name="actionA_propos"/>
+   </widget>
+   <addaction name="menumenu_principal"/>
+   <addaction name="menuPi_ces_jointes"/>
+   <addaction name="menuInfo_pratique"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionmessage">
+   <property name="text">
+    <string>Message</string>
+   </property>
+  </action>
+  <action name="actionordonnance">
+   <property name="text">
+    <string>Ordonnance</string>
+   </property>
+  </action>
+  <action name="actionimprimer">
+   <property name="text">
+    <string>Imprimer</string>
+   </property>
+  </action>
+  <action name="actionFermer">
+   <property name="text">
+    <string>Fermer</string>
+   </property>
+  </action>
+  <action name="actionAjouter_pi_ce_jointe">
+   <property name="text">
+    <string>Ajouter pièce jointe</string>
+   </property>
+  </action>
+  <action name="actionConsulter_les_pi_ces_jointes">
+   <property name="text">
+    <string>Consulter les pièces jointes</string>
+   </property>
+  </action>
+  <action name="actionLire_info">
+   <property name="text">
+    <string>Lire info</string>
+   </property>
+  </action>
+  <action name="actionA_propos">
+   <property name="text">
+    <string>A propos</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
