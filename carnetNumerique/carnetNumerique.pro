@@ -28,13 +28,18 @@ SOURCES += \
         main.cpp \
         appligui.cpp \
     profil.cpp \
-    dialoginfopatient.cpp
+    dialoginfopatient.cpp \
+    dialogafficheinfo.cpp \
+    profilcomplet.cpp
 
 HEADERS += \
         appligui.h \
     profil.h \
-    dialoginfopatient.h
+    dialoginfopatient.h \
+    dialogafficheinfo.h \
+    profilcomplet.h
 
 FORMS += \
         appligui.ui \
-    dialoginfopatient.ui
+    dialoginfopatient.ui \
+    dialogafficheinfo.ui

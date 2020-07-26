@@ -2,16 +2,26 @@
 
 profil::profil(QObject *parent) : QObject(parent)
 {
-    QDir dataFolder("");
-    dataFolder.mkpath("profil/public");
-    publicFile.setFileName("profil/public/publicDataFile.xml"); // creation du fichier de données publiques
+    //QDir dataFolder("");
+    //dataFolder.mkpath("data/profil/profil_1/public");
 
+    //pathFile = "data/profil/profil_1/public";
+
+    //publicFile.setFileName("data/profil/profil_1/public/publicDataFile.xml"); // creation du fichier de données publiques
 }
 
 
 profil::~profil()
 {
+}
 
+
+void profil::creerFichierProfil(QString pseudo) // creation du fichier publique avec le nom du profil
+{
+    QDir dataFolder("");
+    dataFolder.mkpath("data/profil/"+pseudo); // creation du dossier du profil
+    pathFile = "data/profil/"+pseudo;
+    publicFile.setFileName(pathFile+"/"+pseudo+"_publicData.xml"); // creation du fichier de données publiques
 }
 
 
@@ -34,12 +44,11 @@ bool profil::connection() // lorsqu’on se connecte à l’application
 
 
 /**
- * @file enregistre tout le profil public dans fichier xml
+ * @file enregistre toutes les infos le profil public dans fichier xml
 */
 void profil::saveProfilPublic()
 {
     publicFile.open(QFile::WriteOnly | QFile::Text);
-
     QXmlStreamWriter writer(&publicFile);
 
     writer.setAutoFormatting(true); // Active l'indentation automatique du fichier XML pour une meilleur visibilité
@@ -49,14 +58,24 @@ void profil::saveProfilPublic()
 
     writer.writeTextElement("nom", mNom);
     writer.writeTextElement("prenom", mPrenom);
+    writer.writeTextElement("sexe", mSexe);
     writer.writeTextElement("date", mDateNaissance);
     writer.writeTextElement("taille", QString::number(mTaille));
+    writer.writeTextElement("poids", QString::number(mPoids));
     writer.writeTextElement("groupe", mGroupeSanguin);
     writer.writeTextElement("adress", mAdresse);
     writer.writeTextElement("tel", mTel);
     writer.writeTextElement("profession", mProfession);
-    writer.writeTextElement("medecin", mMedecin);
-    writer.writeTextElement("contact", mPersonneContact);
+
+    writer.writeStartElement("medecin");
+    writer.writeTextElement("nom", mMedecin.nom);
+    writer.writeTextElement("tel", mMedecin.numTel);
+    writer.writeEndElement();
+
+    writer.writeStartElement("contact");
+    writer.writeTextElement("nom", mContact.nom);
+    writer.writeTextElement("tel", mContact.numTel);
+    writer.writeEndElement();
 
     writer.writeEndElement(); // Ferme l'element public
     writer.writeEndDocument(); // Finalise le document XML
@@ -64,7 +83,10 @@ void profil::saveProfilPublic()
     publicFile.close();
 }
 
-// setters
+
+/* ******************************************************************
+   **************                 setters               *************
+   ******************************************************************/
 void profil::setNom(QString nom){
     mNom = nom;
 }
@@ -91,6 +113,10 @@ void profil::setTaille(double taille){
     mTaille = taille;
 }
 
+void profil::setPoids(double poids){
+    mPoids = poids;
+}
+
 void profil::setAdresse(QString adress){
     mAdresse = adress;
 }
@@ -103,16 +129,20 @@ void profil::setProfession(QString profession){
     mProfession = profession;
 }
 
-void profil::setMedecin(QString med){
-    mMedecin = med;
+void profil::setMedecin(QString med, QString tel){
+    mMedecin.nom = med;
+    mMedecin.numTel = tel;
 }
 
-void profil::setPersonContact(QString contact){
-    mPersonneContact = contact;
+void profil::setPersonContact(QString contact, QString tel){
+    mContact.nom = contact;
+    mContact.numTel = tel;
 }
 
 
-// getters
+/* ******************************************************************
+   **************                 getters               *************
+   ******************************************************************/
 QString profil::getNom(){
     return mNom;
 }
@@ -137,6 +167,10 @@ double profil::getTaille(){
     return mTaille;
 }
 
+double profil::getPoids(){
+    return mPoids;
+}
+
 QString profil::getAdresse(){
     return mAdresse;
 }
@@ -149,10 +183,22 @@ QString profil::getProfession(){
     return mProfession;
 }
 
-QString profil::getMedecin(){
-    return mMedecin;
+QString profil::getMedecinNom(){
+    return mMedecin.nom;
 }
 
-QString profil::getPersonContact(){
-    return mPersonneContact;
+QString profil::getMedecinTel(){
+    return mMedecin.numTel;
+}
+
+QString profil::getPersonContactNom(){
+    return mContact.nom;
+}
+
+QString profil::getPersonContactTel(){
+    return mContact.numTel;
+}
+
+QString profil::getPathFile(){
+    return pathFile;
 }

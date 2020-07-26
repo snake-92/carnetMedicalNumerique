@@ -2,7 +2,11 @@
 #define APPLIGUI_H
 
 #include <QMainWindow>
-#include "profil.h"
+#include <QMessageBox>
+#include <QCloseEvent>
+#include <QComboBox>
+#include <QWidgetAction>
+#include "dialoginfopatient.h"
 
 namespace Ui {
 class appliGui;
@@ -17,14 +21,21 @@ public:
     ~appliGui();
 
 signals:
-    creerProfil();
 
 private slots:
+    void closeEvent(QCloseEvent *event);
     void on_BoutonCreerProfil_clicked();
+    void on_pushButtonAfficheInfo_clicked();
+    void on_pushButtonModif_clicked();
+    void name_profil_clicked(QString);
+    void rempli_comboBox(QString pseudo);
 
 private:
     Ui::appliGui *ui;
-    QVector<profil> personne;
+    DialogInfoPatient* fen;
+    QString mPseudo;  // nom du profil
+    QList<QAction*> changeProfil;
+    QComboBox *comboBox;
 };
 
 #endif // APPLIGUI_H
