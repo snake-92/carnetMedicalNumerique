@@ -2,6 +2,7 @@
 #define DIALOGINFOPATIENT_H
 
 #include <QDialog>
+#include <QMessageBox>
 #include "profil.h"
 #include <qdebug.h>
 
@@ -18,6 +19,10 @@ public:
     ~DialogInfoPatient();
 
     void remplirLaPage();
+	void setEnableModif(bool);
+
+private:
+	bool pseudoExist(QString);
 
 signals:
     void newprofil(QString);

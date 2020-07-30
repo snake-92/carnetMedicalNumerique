@@ -15,7 +15,10 @@ profil::~profil()
 {
 }
 
-
+/**
+ * @param : QString pseudo
+ * @return cree le dossier du profil avec le nom pseudo
+*/
 void profil::creerFichierProfil(QString pseudo) // creation du fichier publique avec le nom du profil
 {
     QDir dataFolder("");

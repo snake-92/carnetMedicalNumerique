@@ -1,6 +1,7 @@
 #include "appligui.h"
 #include <QApplication>
 #include <qdir.h>
+#include <qDebug>
 
 int main(int argc, char *argv[])
 {

@@ -32,6 +32,8 @@ appliGui::appliGui(QWidget *parent) :
 appliGui::~appliGui()
 {
     delete ui;
+	delete fen;
+	delete comboBox;
 }
 
 void appliGui::closeEvent(QCloseEvent *event)
@@ -42,7 +44,6 @@ void appliGui::closeEvent(QCloseEvent *event)
 
 
 void appliGui::rempli_comboBox(QString pseudo){
-    qDebug()<<"pass...";
     comboBox->addItem(pseudo);
 }
 
@@ -57,13 +58,23 @@ void appliGui::name_profil_clicked(QString pseudo){
                                    QMessageBox::Ok | QMessageBox::Cancel,
                                    QMessageBox::Ok);
 
-    // TODO: apres avoir validé changer le nom pseudo dans le fichier
+	if(choice == QMessageBox::Ok){
+		QFile file("data/temp/temp.txt");
+		if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+			QTextStream out(&file);
+			out << pseudo;
+			file.close();
+		}
+	}
+
     // TODO: changer les chemins pour les fichiers publiques et privé
 }
 
 
 void appliGui::on_BoutonCreerProfil_clicked() // creer un nouveau profil
 {
+	// TODO: demander le mdp
+
     //DialogInfoPatient fenetreSaisieInfo(this);
     fen->exec();
 }
@@ -78,6 +89,11 @@ void appliGui::on_pushButtonAfficheInfo_clicked() // afficher les infos du profi
 
 void appliGui::on_pushButtonModif_clicked()  // modifier les infos du profil
 {
-    DialogInfoPatient fenetreSaisieInfo(this, true);
-    fenetreSaisieInfo.exec();
+
+	// TODO: demander le mdp
+
+	//DialogInfoPatient fenetreSaisieInfo(this, true);
+	//fenetreSaisieInfo.exec();
+	fen->setEnableModif(true);
+	fen->exec();
 }

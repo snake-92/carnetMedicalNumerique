@@ -36,50 +36,64 @@ void DialogInfoPatient::on_buttonBox_accepted()
     // TO DO verification d'identité
 
     // creation d'un nouveau profil
+	bool testPseudo;
     profil nouveauProfil;
 
     if(!EnableModif){
-        pseudoProfil = QInputDialog::getText (this, "nom du profil", "Entrer le nom de votre profil");
-        nouveauProfil.creerFichierProfil(pseudoProfil);
 
-        // envoi l'information de creation de profil
-        emit newprofil(pseudoProfil);
+		pseudoProfil = QInputDialog::getText (this, "nom du profil", "Entrer le nom de votre profil");
+		testPseudo = pseudoExist(pseudoProfil);
 
-        QFile file("data/temp/temp.txt");
-        if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            QTextStream out(&file);
-            out << pseudoProfil;
-            file.close();
-        }
+		if(!testPseudo){// test si le profil existe déjà
+
+			nouveauProfil.creerFichierProfil(pseudoProfil);
+
+			// envoi l'information de creation de profil
+			emit newprofil(pseudoProfil);
+
+			// enregistrement du nom de profil dans le fichier temporaire
+			QFile file("data/temp/temp.txt");
+			if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+				QTextStream out(&file);
+				out << pseudoProfil;
+				file.close();
+			}
+		}else{
+			int choice = QMessageBox::warning(this, tr("Création de profil"),
+										   tr("Ce nom de profil existe déjà!"),
+										   QMessageBox::Cancel,
+										   QMessageBox::Cancel);
+		}
     }
 
     // VERIFIER SI NOM EXISTE DEJA AVANT DE CONTINUER POUR RECUPERER LE PSEUDO ET S'ORIENTE SUR LE BON FICHIER POUR LES MODIFS
 
+	if(!testPseudo){
+		// recuperation des infos
+		nouveauProfil.setNom(ui->lineEditNom->text());
+		nouveauProfil.setPrenom(ui->lineEditPrenom->text());
 
-    // recuperation des infos
-    nouveauProfil.setNom(ui->lineEditNom->text());
-    nouveauProfil.setPrenom(ui->lineEditPrenom->text());
+		if(ui->radioButtonM->isChecked()){
+			nouveauProfil.setSexe("M");
+		}
+		if(ui->radioButtonMme->isChecked()){
+			nouveauProfil.setSexe("F");
+		}
 
-    if(ui->radioButtonM->isChecked()){
-        nouveauProfil.setSexe("M");
-    }
-    if(ui->radioButtonMme->isChecked()){
-        nouveauProfil.setSexe("F");
-    }
+		nouveauProfil.setAdresse(ui->lineEditEmail->text());
+		nouveauProfil.setDateNaissance(ui->dateEditDate->text());
+		nouveauProfil.setProfession(ui->lineEditProfession->text());
+		nouveauProfil.setTel(ui->lineEditTel->text());
+		nouveauProfil.setGroupSanguin(ui->comboBoxGroupe->currentText() + ui->comboBoxRhesus->currentText());
+		nouveauProfil.setTaille(ui->doubleSpinBoxTaille->value());
+		nouveauProfil.setPoids(ui->doubleSpinBoxPoids->value());
+		nouveauProfil.setPersonContact(ui->lineEditContact->text(), ui->lineEditTelContact->text());
+		nouveauProfil.setMedecin(ui->lineEditNomMedecin->text(), ui->lineEditTelMedecin->text());
 
-    nouveauProfil.setAdresse(ui->lineEditEmail->text());
-    nouveauProfil.setDateNaissance(ui->dateEditDate->text());
-    nouveauProfil.setProfession(ui->lineEditProfession->text());
-    nouveauProfil.setTel(ui->lineEditTel->text());
-    nouveauProfil.setGroupSanguin(ui->comboBoxGroupe->currentText() + ui->comboBoxRhesus->currentText());
-    nouveauProfil.setTaille(ui->doubleSpinBoxTaille->value());
-    nouveauProfil.setPoids(ui->doubleSpinBoxPoids->value());
-    nouveauProfil.setPersonContact(ui->lineEditContact->text(), ui->lineEditTelContact->text());
-    nouveauProfil.setMedecin(ui->lineEditNomMedecin->text(), ui->lineEditTelMedecin->text());
+		nouveauProfil.saveProfilPublic(); // sauvegarder dans le fichier publique
 
-    nouveauProfil.saveProfilPublic(); // sauvegarder dans le fichier publique
-
-    hide();
+		hide();
+	}
 }
 
 
@@ -105,7 +119,6 @@ void DialogInfoPatient::remplirLaPage(){
         out >> pseudo;
         filetemp.close();
     }
-
 
     QFile file;
     //file.setFileName("data/profil/profil_1/public/publicDataFile.xml");
@@ -184,4 +197,27 @@ void DialogInfoPatient::remplirLaPage(){
     }
 
     file.close();
+}
+
+
+bool DialogInfoPatient::pseudoExist(QString pseudo){
+	bool trouver = false;
+
+	// lister tous les noms de profils dans le dossier profil
+	QDir repertoireProfil("data/profil/");
+	QStringList list = repertoireProfil.entryList();
+
+	for(int i=2; i<list.length(); i++){ // comparaison avec les autres pseudo
+		if(pseudo == list[i]){
+			trouver = true;
+			break; // si les pseudo entrer existe déjà retourner true
+		}
+	}
+	return trouver;
+}
+
+
+void DialogInfoPatient::setEnableModif(bool b){
+	EnableModif = b;
+	remplirLaPage();
 }
