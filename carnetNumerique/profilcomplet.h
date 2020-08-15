@@ -5,18 +5,21 @@
 
 class profilComplet : public profil
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    profilComplet();
+	profilComplet();
+
+	void saveProfilComplet();
 
 private:
-    QString mAllergie;
-    QString mPatologie;
-    QString mInterventionChirurgical;
-    QString mVaccin;
-    QString mdetailleHistorique;
-    QString mRisqueParticulier;
-    QString mInfoComplementaire;
+	struct{
+		QString medecin;
+		QString data;
+		QString prescriptions;
+		QString message;
+	}consult;
+
+	QFile privateFile; // fichier privée
 };
 
 #endif // PROFILCOMPLET_H

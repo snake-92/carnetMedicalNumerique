@@ -9,6 +9,8 @@ appliGui::appliGui(QWidget *parent) :
 {
     ui->setupUi(this);
 
+	// TODO : faire en sorte que le pseudo du profil en cours soit selectionnner
+
     // chercher tous les profils pour les mettre dans le menu
     QDir repertoireProfil("data/profil/");
     QStringList list = repertoireProfil.entryList();
@@ -67,6 +69,8 @@ void appliGui::name_profil_clicked(QString pseudo){
 		}
 	}
 
+	// TODO: si la reponse est cancel, revenir sur le pseudo précedent
+
     // TODO: changer les chemins pour les fichiers publiques et privé
 }
 
@@ -76,6 +80,8 @@ void appliGui::on_BoutonCreerProfil_clicked() // creer un nouveau profil
 	// TODO: demander le mdp
 
     //DialogInfoPatient fenetreSaisieInfo(this);
+
+	// penser à vider les champs
     fen->exec();
 }
 
@@ -96,4 +102,10 @@ void appliGui::on_pushButtonModif_clicked()  // modifier les infos du profil
 	//fenetreSaisieInfo.exec();
 	fen->setEnableModif(true);
 	fen->exec();
+}
+
+
+void appliGui::on_pushButtonModifPrive_clicked() // modifier profil privée
+{
+	// TODO :  fenetre modif
 }

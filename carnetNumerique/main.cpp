@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
 
     QDir dataFolder("");
     dataFolder.mkpath("data/profil"); // chemin vers les dossiers des profils
+	dataFolder.mkpath("data/profil/admin"); // chemin vers l'admin
     dataFolder.mkpath("data/temp"); // chemin vers les fichiers temporaires
     QFile tempFile;
     tempFile.setFileName("data/temp/temp.txt"); // sauvegarde du profil connecté

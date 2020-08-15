@@ -30,6 +30,8 @@ private slots:
     void name_profil_clicked(QString);
     void rempli_comboBox(QString pseudo);
 
+	void on_pushButtonModifPrive_clicked();
+
 private:
     Ui::appliGui *ui;
     DialogInfoPatient* fen;
