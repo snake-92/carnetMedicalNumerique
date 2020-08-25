@@ -27,16 +27,28 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QPushButton" name="BoutonCreerProfil">
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>40</height>
+          </size>
+         </property>
          <property name="text">
-          <string>Créer Profil</string>
+          <string>Consulter profil public</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_2">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>40</height>
+          </size>
+         </property>
          <property name="text">
-          <string>PushButton</string>
+          <string>Consulter profil complet</string>
          </property>
         </widget>
        </item>
@@ -45,16 +57,28 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QPushButton" name="pushButton_3">
+        <widget class="QPushButton" name="BoutonCreerProfil">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>40</height>
+          </size>
+         </property>
          <property name="text">
-          <string>PushButton</string>
+          <string>Créer Profil</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_4">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>40</height>
+          </size>
+         </property>
          <property name="text">
-          <string>PushButton</string>
+          <string>Modifier profil</string>
          </property>
         </widget>
        </item>
@@ -76,7 +100,14 @@
     <property name="title">
      <string>Menu principal</string>
     </property>
-    <addaction name="actionmessage"/>
+    <widget class="QMenu" name="menuMessagerie">
+     <property name="title">
+      <string>Messagerie</string>
+     </property>
+     <addaction name="actionLire_message"/>
+     <addaction name="actionEcrire_message"/>
+    </widget>
+    <addaction name="menuMessagerie"/>
     <addaction name="actionordonnance"/>
     <addaction name="actionimprimer"/>
     <addaction name="separator"/>
@@ -97,9 +128,21 @@
     <addaction name="separator"/>
     <addaction name="actionA_propos"/>
    </widget>
+   <widget class="QMenu" name="menuAfficher_profils">
+    <property name="title">
+     <string>Afficher profils</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuLangue">
+    <property name="title">
+     <string>Langue</string>
+    </property>
+   </widget>
    <addaction name="menumenu_principal"/>
    <addaction name="menuPi_ces_jointes"/>
    <addaction name="menuInfo_pratique"/>
+   <addaction name="menuAfficher_profils"/>
+   <addaction name="menuLangue"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -110,11 +153,6 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionmessage">
-   <property name="text">
-    <string>Message</string>
-   </property>
-  </action>
   <action name="actionordonnance">
    <property name="text">
     <string>Ordonnance</string>
@@ -148,6 +186,16 @@
   <action name="actionA_propos">
    <property name="text">
     <string>A propos</string>
+   </property>
+  </action>
+  <action name="actionLire_message">
+   <property name="text">
+    <string>Lire message</string>
+   </property>
+  </action>
+  <action name="actionEcrire_message">
+   <property name="text">
+    <string>Ecrire message</string>
    </property>
   </action>
  </widget>

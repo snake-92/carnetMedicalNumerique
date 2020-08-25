@@ -25,16 +25,24 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+    formlogin.cpp \
+    formmessagerie.cpp \
         main.cpp \
         appligui.cpp \
+    menuprincipal.cpp \
     profil.cpp \
     dialoginfopatient.cpp
 
 HEADERS += \
         appligui.h \
+    formlogin.h \
+    formmessagerie.h \
+    menuprincipal.h \
     profil.h \
     dialoginfopatient.h
 
 FORMS += \
         appligui.ui \
-    dialoginfopatient.ui
+    dialoginfopatient.ui \
+    formlogin.ui \
+    formmessagerie.ui

@@ -1,4 +1,9 @@
 #include "profil.h"
+#include<iostream>
+#include<fstream>
+
+using namespace std;
+
 
 profil::profil(QObject *parent) : QObject(parent)
 {
@@ -20,17 +25,32 @@ profil::~profil()
  * @param
  * @return Un instant correspondant à l'instant présent
 */
-void profil::saveConnectionId(QString mNomProfil, QString mMotDePasse) // pour enregistrer le mot de passe et le nom de profil dans un fichier
+void profil::saveConnectionId(Admin admin) // pour enregistrer le mot de passe et le nom de profil dans un fichier
 {
+    QDir Idpath("");
+  Idpath.mkpath("profilAdmin/idConnexion");
+
+       ofstream wIdfile("profilAdmin/idConnexion/IdConnexion.dat", ios::out | ios::binary);
+       if(!wIdfile) {
+           qDebug("cannot open file in write mode");
+           return;
+       }
+       else
+       {
+           wIdfile.write((char *) &admin, sizeof(admin));
+        wIdfile.close();
+       }
+
+        // test de bonne écriture
+       if(!wIdfile.good()) {
+          qDebug("Error occurred at writing time!");
+          return;
+       }
 
 }
 
 
-bool profil::connection() // lorsqu’on se connecte à l’application
-{
-    bool verification;
-    return verification;
-}
+
 
 
 /**
@@ -65,6 +85,22 @@ void profil::saveProfilPublic()
 }
 
 // setters
+
+void profil:: setNomAdmin(QString nomAdmin)
+{
+    identifiant.mNomAdmin = nomAdmin;
+}
+
+void profil:: setMailTelAdmin(QString Mail_TelAdmin)
+{
+    identifiant.mMailTelAdmin = Mail_TelAdmin;
+}
+void profil::setMotDePasse(QString MotDePasse)
+{
+    identifiant.mMotDePasse = MotDePasse;
+}
+
+
 void profil::setNom(QString nom){
     mNom = nom;
 }
@@ -113,6 +149,24 @@ void profil::setPersonContact(QString contact){
 
 
 // getters
+
+QString profil::getNomAdmin()
+{
+    return identifiant.mNomAdmin;
+}
+
+QString profil:: getMotDePasse()
+{
+    return identifiant.mMotDePasse;
+}
+
+QString profil:: getMailTelAdmin()
+{
+    return identifiant.mMailTelAdmin;
+}
+
+
+
 QString profil::getNom(){
     return mNom;
 }

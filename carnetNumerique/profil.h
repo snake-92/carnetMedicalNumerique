@@ -11,12 +11,25 @@
 class profil : public QObject
 {
     Q_OBJECT
+
+
 public:
     explicit profil(QObject *parent = nullptr);
     ~profil();
+    struct Admin {
+        QString mMotDePasse;
+        QString mNomAdmin;
+        QString mMailTelAdmin;
+    };
+    Admin identifiant; //je déclare une instance de ma structure
 
-    void saveConnectionId(QString mNomProfil, QString mMotDePasse);
-    bool connection();
+
+
+    void saveConnectionId(Admin admin);
+
+   // bool connection(bool is_admin);
+
+
 
     // setters
     void setNom(QString);
@@ -30,6 +43,9 @@ public:
     void setProfession(QString);
     void setMedecin(QString);
     void setPersonContact(QString);
+    void setNomAdmin(QString); // JM
+    void setMotDePasse(QString); //JM
+    void setMailTelAdmin(QString);
 
     // getters
     QString getNom();
@@ -43,6 +59,11 @@ public:
     QString getProfession();
     QString getMedecin();
     QString getPersonContact();
+    QString getNomAdmin();
+    QString getMailTelAdmin();
+    QString getMotDePasse();
+
+
 
 signals:
 
@@ -62,7 +83,9 @@ private:
     QString mMedecin;
     QString mPersonneContact;
     QString mNomProfil;
-    QString mMotDePasse;
+
+
+
 
     QFile publicFile;
 };
