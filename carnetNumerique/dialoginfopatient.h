@@ -20,6 +20,7 @@ public:
 
     void remplirLaPage();
 	void setEnableModif(bool);
+	void setInAdminProfil(bool b);
 
 private:
 	bool pseudoExist(QString);
@@ -35,6 +36,7 @@ private:
     Ui::DialogInfoPatient *ui;
     bool EnableModif;
     QString pseudoProfil;
+	bool adminProfil;
 };
 
 #endif // DIALOGINFOPATIENT_H

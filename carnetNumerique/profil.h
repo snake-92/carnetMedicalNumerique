@@ -15,7 +15,7 @@ public:
     explicit profil(QObject *parent = nullptr);
     ~profil();
 
-    void creerFichierProfil(QString pseudo);
+	void creerFichierProfil(QString pseudo, bool admin=false);
 
     void saveConnectionId(QString mNomProfil, QString mMotDePasse);
     bool connection();

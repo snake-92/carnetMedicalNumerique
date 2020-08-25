@@ -9,6 +9,8 @@ DialogInfoPatient::DialogInfoPatient(QWidget *parent, bool modif) :
 {
     ui->setupUi(this);
 
+	adminProfil = true;
+
     EnableModif = modif; // permet de savoir si ouvre cette fenêtre pour creer ou modifier un profil
 
     // imposer la saisie de nombre dans les champs "N° de tél"
@@ -28,6 +30,11 @@ DialogInfoPatient::~DialogInfoPatient()
 }
 
 
+void DialogInfoPatient::setInAdminProfil(bool b){
+	adminProfil = b;
+}
+
+
 /**
  * @return Initialise tout les attributs du profil et les enregistre dans le fichier publique
 */
@@ -39,7 +46,7 @@ void DialogInfoPatient::on_buttonBox_accepted()
 	bool testPseudo;
     profil nouveauProfil;
 
-    if(!EnableModif){
+	if(!EnableModif && !adminProfil){
 
 		pseudoProfil = QInputDialog::getText (this, "nom du profil", "Entrer le nom de votre profil");
 		testPseudo = pseudoExist(pseudoProfil);
@@ -66,7 +73,21 @@ void DialogInfoPatient::on_buttonBox_accepted()
 		}
     }
 
-    // VERIFIER SI NOM EXISTE DEJA AVANT DE CONTINUER POUR RECUPERER LE PSEUDO ET S'ORIENTE SUR LE BON FICHIER POUR LES MODIFS
+	if(adminProfil){
+		nouveauProfil.creerFichierProfil("admin", true); // specifie que c'est la creation du profil admin avec le "true"
+
+		// envoi l'information de creation de profil
+		emit newprofil("admin");
+
+		// enregistrement du nom de profil dans le fichier temporaire
+		QFile file("data/temp/temp.txt");
+		if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+			QTextStream out(&file);
+			out << "admin";
+			file.close();
+		}
+	}
+
 
 	if(!testPseudo){
 		// recuperation des infos

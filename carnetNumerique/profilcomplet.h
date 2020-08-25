@@ -10,13 +10,13 @@ public:
 	profilComplet();
 
 	void saveProfilComplet();
+	void saveAllergie(QString msg);
 
 private:
 	struct{
-		QString medecin;
-		QString data;
-		QString prescriptions;
-		QString message;
+		QString precedant;
+		QString allergies;
+		QString risquesParticulier;
 	}consult;
 
 	QFile privateFile; // fichier privée

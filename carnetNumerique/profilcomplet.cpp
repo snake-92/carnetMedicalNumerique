@@ -1,6 +1,6 @@
 #include "profilcomplet.h"
 
-// a mettre dans la classe profilPrive
+
 /*namespace
 {
 	const QByteArray printables()
@@ -44,5 +44,10 @@ profilComplet::profilComplet()
 }
 
 void profilComplet::saveProfilComplet(){
+
+}
+
+
+void profilComplet::saveAllergie(QString msg){
 
 }

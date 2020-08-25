@@ -38,6 +38,7 @@ private:
     QString mPseudo;  // nom du profil
     QList<QAction*> changeProfil;
     QComboBox *comboBox;
+
 };
 
 #endif // APPLIGUI_H

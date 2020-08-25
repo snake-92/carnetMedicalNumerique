@@ -9,6 +9,16 @@ appliGui::appliGui(QWidget *parent) :
 {
     ui->setupUi(this);
 
+	fen = new DialogInfoPatient(this);
+
+	QDir adminRepertoire("data/profil/admin");
+	if(adminRepertoire.isEmpty()){ // si le repertoire est vide (pas encore activé)
+		qDebug()<<"pas de profil admin";
+		fen->setInAdminProfil(true); // profil admin
+		fen->exec();
+	}
+
+
 	// TODO : faire en sorte que le pseudo du profil en cours soit selectionnner
 
     // chercher tous les profils pour les mettre dans le menu
@@ -22,12 +32,11 @@ appliGui::appliGui(QWidget *parent) :
     ui->menuCharger_un_profil->addAction(checkableAction);
 
     for(int i=2; i<list.length(); i++){
-        comboBox->addItem(list[i]);
+		comboBox->addItem(list[i]);
     }
 
     connect(comboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(name_profil_clicked(QString)));
 
-    fen = new DialogInfoPatient(this);
     connect(fen, SIGNAL(newprofil(QString)), this, SLOT(rempli_comboBox(QString)));
 }
 
@@ -61,6 +70,15 @@ void appliGui::name_profil_clicked(QString pseudo){
                                    QMessageBox::Ok);
 
 	if(choice == QMessageBox::Ok){
+
+		if(pseudo == "admin"){
+			fen->setInAdminProfil(true); // profil admin
+		}else{
+			fen->setInAdminProfil(false); // profil user
+		}
+
+		ui->label_profil_actuel->setText(pseudo); // afficher le profil connecté
+
 		QFile file("data/temp/temp.txt");
 		if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
 			QTextStream out(&file);

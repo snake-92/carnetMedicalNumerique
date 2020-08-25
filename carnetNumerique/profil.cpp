@@ -19,12 +19,17 @@ profil::~profil()
  * @param : QString pseudo
  * @return cree le dossier du profil avec le nom pseudo
 */
-void profil::creerFichierProfil(QString pseudo) // creation du fichier publique avec le nom du profil
+void profil::creerFichierProfil(QString pseudo, bool admin) // creation du fichier publique avec le nom du profil
 {
-    QDir dataFolder("");
-    dataFolder.mkpath("data/profil/"+pseudo); // creation du dossier du profil
-    pathFile = "data/profil/"+pseudo;
-    publicFile.setFileName(pathFile+"/"+pseudo+"_publicData.xml"); // creation du fichier de données publiques
+	if(!admin){
+		QDir dataFolder("");
+		dataFolder.mkpath("data/profil/"+pseudo); // creation du dossier du profil
+		pathFile = "data/profil/"+pseudo;
+		publicFile.setFileName(pathFile+"/"+pseudo+"_publicData.xml"); // creation du fichier de données publiques
+	}else{
+		pathFile = "data/profil/admin";
+		publicFile.setFileName(pathFile+"/admin_publicData.xml"); // creation du fichier de données publiques
+	}
 }
 
 
